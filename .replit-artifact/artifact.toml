@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Family Dental"
+description = "A responsive single-page website for Family Dental in Kachiguda, Hyderabad, sharing clinic information and making appointment booking by WhatsApp easy."
+version = "1.0.0"
+id = "artifacts/family-dental"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20574
+
+[services.development]
+run = "pnpm --filter @workspace/family-dental run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/family-dental", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/family-dental/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20574"
+BASE_PATH = "/"
