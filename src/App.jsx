@@ -17,7 +17,10 @@ function setSearchMetadata() {
   const description = seo.description;
   const setMeta = (selector, attribute, value) => {
     let element = document.head.querySelector(selector);
-    if (!element) { element = document.createElement('meta'); document.head.appendChild(element); }
+    if (!element) {
+      element = document.createElement('meta');
+      document.head.appendChild(element);
+    }
     element.setAttribute(attribute, value);
   };
   setMeta('meta[name="description"]', 'content', description);
@@ -43,30 +46,43 @@ function Schema() {
       addressRegion: clinic.addressRegion,
       addressCountry: clinic.addressCountry,
     },
-    aggregateRating: { '@type': 'AggregateRating', ratingValue: clinic.rating, reviewCount: String(clinic.reviewCount) },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: clinic.rating,
+      reviewCount: String(clinic.reviewCount),
+    },
     openingHours: clinic.openingHours,
   };
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}/>;
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
 }
 
 export default function App() {
   setSearchMetadata();
-  return <>
-    <a className="skip-link" href="#main">{siteCopy.skipLink}</a>
-    <Navbar/>
-    <main id="main">
-      <Hero/>
-      <Stats/>
-      <Treatments/>
-      <WhyUs/>
-      <Doctor/>
-      <Reviews/>
-      <Booking/>
-      <Visit/>
-      <FinalCTA/>
-    </main>
-    <Footer/>
-    <FloatingCTA/>
-    <Schema/>
-  </>;
+  return (
+    <>
+      <a className="skip-link" href="#main">
+        {siteCopy.skipLink}
+      </a>
+      <Navbar />
+      <main id="main">
+        <Hero />
+        <Stats />
+        <Treatments />
+        <WhyUs />
+        <Doctor />
+        <Reviews />
+        <Booking />
+        <Visit />
+        <FinalCTA />
+      </main>
+      <Footer />
+      <FloatingCTA />
+      <Schema />
+    </>
+  );
 }
